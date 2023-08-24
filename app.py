@@ -59,7 +59,7 @@ def precipitation():
     prcp = sesh.query(measure.date, measure.prcp).\
                         filter(measure.date > one_y).all()
 
-    # Save the query results as a Pandas DataFrame. Explicitly set the column names
+    # Save the query results as a Pandas DataFrame.
     prcp_d = pd.DataFrame(prcp, columns=['date', 'precipitation'])
 
     # Sort the dataframe by date
@@ -93,7 +93,7 @@ def tobs():
                         filter(measure.date > one_y_t).\
                         filter(measure.station =='USC00519281').all()
 
-    # Save the query results as a Pandas DataFrame. Explicitly set the column names
+    # Save the query results as a Pandas DataFrame.
     temp_d = pd.DataFrame(temp, columns=['date', 'temperature'])
 
     # Sort the dataframe by date
@@ -109,7 +109,7 @@ def tobs():
 def start(start):
     sesh = Session(engine)
     
-    # querying the min, max, and average for the most active station
+    # querying the min, max, and average of all the stations
     sel = [func.min(measure.tobs), func.max(measure.tobs), func.avg(measure.tobs)]
     temp = sesh.query(*sel).filter(measure.date >= start).all()
     
@@ -127,7 +127,7 @@ def start(start):
 def start_end(start, end):
     sesh = Session(engine)
     
-    # querying the min, max, and average for the most active station
+    # querying the min, max, and average of all the stations
     sel = [func.min(measure.tobs), func.max(measure.tobs), func.avg(measure.tobs)]
     temp = sesh.query(*sel).filter(measure.date >= start).filter(measure.date <= end).all()
     
